@@ -15,7 +15,326 @@
   "schemes": ["https"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "paths": {
+  "paths": {{
+    "/api/v1/Organizations/{Page Number}": {
+        "get": {
+            "responses": {
+                "200": {
+                    "description": "default",
+                    "schema": {
+                        "$ref": "#/definitions/OrganizationData"
+                    }
+                }
+            },
+            "summary": "List All Organizations",
+            "description": "List All Organizations",
+            "operationId": "List-All-Organizations",
+            "parameters": [
+                {
+                    "name": "Page Number",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "default": 1,
+                    "description": "Page  Number.",
+                    "x-ms-summary": "Page Number"
+                },
+                {
+                    "name": "Name",
+                    "in": "query",
+                    "required": false,
+                    "type": "string",
+                    "description": "Organization Name."
+                },
+                {
+                    "name": "Include Details",
+                    "in": "query",
+                    "required": false,
+                    "type": "boolean",
+                    "default": true,
+                    "enum": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "name": "Tag",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "Domain",
+                    "in": "query",
+                    "required": false,
+                    "type": "string",
+                    "description": "Organization Name."
+                },
+                {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "x-ms-visibility": "internal"
+                }
+            ]
+        }
+    },
+    "/api/v1/Individuals/{ID Or Record Number}/Emails": {
+        "post": {
+            "responses": {
+                "200": {
+                    "description": "default",
+                    "schema": {
+                        "$ref": "#/definitions/EmailData"
+                    }
+                }
+            },
+            "summary": "Add Email to Individual",
+            "description": "Add Email to Individual",
+            "operationId": "Add-Email-to-Individual",
+            "parameters": [
+                {
+                    "name": "ID Or Record Number",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "Individual ID Or Record Number.",
+                    "x-ms-summary": "Individual ID Or Record Number."
+                },
+                {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "x-ms-visibility": "internal"
+                },
+                {
+                    "name": "body",
+                    "in": "body",
+                    "required": false,
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "primary": {
+                                "type": "boolean",
+                                "description": "Primary",
+                                "title": "Primary",
+                                "enum": [
+                                    true,
+                                    false
+                                ]
+                            },
+                            "address": {
+                                "type": "string",
+                                "description": "Address.",
+                                "title": "Address"
+                            },
+                            "type": {
+                                "type": "string",
+                                "description": "Type.",
+                                "title": "Type"
+                            },
+                            "showInDirectory": {
+                                "type": "boolean",
+                                "description": "Show In Directory",
+                                "title": "Show In Directory",
+                                "enum": [
+                                    true,
+                                    false
+                                ]
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "/api/v1/Individuals/{ID Or Record Number}/Addresses": {
+        "post": {
+            "responses": {
+                "200": {
+                    "description": "default",
+                    "schema": {
+                        "$ref": "#/definitions/AddressSaveData"
+                    }
+                }
+            },
+            "summary": "Add or Update Address to Individual",
+            "description": "Add or Update Address to Individual",
+            "operationId": "Add-or-Update-Address-to-Individual",
+            "parameters": [
+                {
+                    "name": "ID Or Record Number",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "Individual ID or Record Number.",
+                    "x-ms-summary": "Individual ID or Record Number"
+                },
+                {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "x-ms-visibility": "internal"
+                },
+                {
+                    "name": "body",
+                    "in": "body",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/AddressSaveData"
+                    }
+                }
+            ]
+        }
+    },
+    "/api/v1/Individuals/Members/FindByName/{First Name}/{Last Name}/{Page Number}": {
+        "get": {
+            "responses": {
+                "200": {
+                    "description": "default",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "pageNumber": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Page Number."
+                            },
+                            "dataList": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/IndividualData"
+                                },
+                                "description": "dataList"
+                            }
+                        }
+                    }
+                }
+            },
+            "summary": "Find Members (Individuals) by First Name and Last Name",
+            "description": "Find Members (Individuals) by First Name and Last Name",
+            "operationId": "Find-members-or-individuals-by-first-and-last-name",
+            "parameters": [
+                {
+                    "name": "First Name",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "First Name",
+                    "x-ms-summary": "First Name"
+                },
+                {
+                    "name": "Last Name",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "Last Name",
+                    "x-ms-summary": "Last Name"
+                },
+                {
+                    "name": "Page Number",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "description": "Page Number.",
+                    "x-ms-summary": "Page Number"
+                },
+                {
+                    "name": "includeEmail",
+                    "in": "query",
+                    "required": false,
+                    "type": "boolean",
+                    "default": false,
+                    "enum": [
+                        false,
+                        true
+                    ],
+                    "description": "Include Email Data."
+                },
+                {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "x-ms-visibility": "internal"
+                }
+            ]
+        }
+    },
+    "/api/v1/Committees/{ID Or Code}/Members/{Page Number}": {
+        "get": {
+            "responses": {
+                "default": {
+                    "description": "default",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "pageNumber": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "Page Number."
+                            },
+                            "dataList": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/CommitteeMemberDetailData"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "summary": "Get Committee Members by committee ID or code",
+            "description": "Get Committee Members by Committee ID or Code",
+            "operationId": "Get-Committee-Members-by-committee-ID-or-code",
+            "parameters": [
+                {
+                    "name": "ID Or Code",
+                    "in": "path",
+                    "required": true,
+                    "type": "string",
+                    "description": "Committee ID or Code",
+                    "x-ms-summary": "Committee ID or Code"
+                },
+                {
+                    "name": "Page Number",
+                    "in": "path",
+                    "required": true,
+                    "type": "integer",
+                    "description": "Page Number",
+                    "x-ms-summary": "Page Number"
+                },
+                {
+                    "name": "Term",
+                    "in": "query",
+                    "required": false,
+                    "type": "integer"
+                },
+                {
+                    "name": "Position Codes",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                {
+                    "name": "Content-Type",
+                    "in": "header",
+                    "required": true,
+                    "type": "string",
+                    "default": "application/json",
+                    "x-ms-visibility": "internal"
+                }
+            ]
+        }
+    }
+},
     "/api/v1/Individuals": {
       "post": {
         "tags": ["Individuals"],
@@ -28,7 +347,7 @@
           }
         },
         "summary": "Add Individual",
-        "description": "Adds an Individual.",
+        "description": "Add an Individual.",
         "operationId": "Add-Individual",
         "parameters": [
           {
